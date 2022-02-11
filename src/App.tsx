@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 
+import AuthLayout from './components/AuthLayout'
 import Login from './pages/Auth/Login'
 import Signup from './pages/Auth/Signup'
 import Home from './pages/Home/Home'
@@ -16,8 +17,10 @@ const App = () => {
 
       <Route path="*" element={<NotFound />} />
 
-      <Route path="signup" element={<Signup />} />
-      <Route path="login" element={<Login />} />
+      <Route element={<AuthLayout />}>
+        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+      </Route>
     </Routes>
   )
 }

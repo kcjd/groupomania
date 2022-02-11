@@ -5,6 +5,10 @@ const theme = extendTheme({
     global: {
       'html, body': {
         bg: 'gray.100'
+      },
+      'input:-webkit-autofill': {
+        font: 'inherit',
+        boxShadow: '200px 200px 100px white inset'
       }
     }
   },
@@ -38,12 +42,62 @@ const theme = extendTheme({
     },
     danger: {
       50: 'hsl(353 81% 96%)',
+      400: 'hsl(353 81% 64%)',
       500: 'hsl(353 81% 51%)',
       600: 'hsl(353 81% 46%)'
     }
   },
   shadows: {
     outline: '0 0 0 3px hsl(209 84% 56% / 40%)'
+  },
+  components: {
+    Button: {
+      baseStyle: { fontWeight: 'medium' },
+      sizes: {
+        lg: {
+          borderRadius: 'lg',
+          fontSize: 'md'
+        }
+      }
+    },
+    Heading: {
+      variants: {
+        h1: { fontSize: '2xl' }
+      }
+    },
+    Input: {
+      variants: {
+        border: {
+          field: {
+            border: '1px solid',
+            borderColor: 'gray.200',
+            bg: 'transparent',
+            _focus: { borderColor: 'brand.200' },
+            _invalid: { borderColor: 'danger.400' }
+          }
+        }
+      },
+      sizes: {
+        lg: {
+          field: {
+            borderRadius: 'lg',
+            fontSize: 'md'
+          }
+        }
+      },
+      defaultProps: { variant: 'border' }
+    },
+    Link: {
+      baseStyle: {
+        _hover: { textDecoration: 'none' }
+      },
+      variants: {
+        primary: {
+          color: 'brand.500',
+          fontWeight: 'medium'
+        }
+      }
+    }
   }
 })
 

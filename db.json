@@ -1,0 +1,144 @@
+{
+  "users": [
+    {
+      "email": "devon.lane@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Lane",
+      "firstname": "Devon",
+      "position": "Développeur web",
+      "picture": "https://images.unsplash.com/photo-1594672830234-ba4cfe1202dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      "role": "user",
+      "id": 1
+    },
+    {
+      "email": "jacob.jones@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Jones",
+      "firstname": "Jacob",
+      "position": "Directeur marketing",
+      "picture": "https://images.unsplash.com/photo-1623366302587-b38b1ddaefd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
+      "role": "user",
+      "id": 2
+    },
+    {
+      "email": "jane.cooper@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Cooper",
+      "firstname": "Jane",
+      "position": "Expert comptable",
+      "picture": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "email": "cody.fisher@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Fisher",
+      "firstname": "Cody",
+      "position": "CEO",
+      "picture": "https://images.unsplash.com/photo-1614321375197-c5083895b054?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=728&q=80",
+      "role": "moderator",
+      "id": 4
+    },
+    {
+      "email": "kristin.watson@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Watson",
+      "firstname": "Kristin",
+      "position": "Chargée de recrutement",
+      "picture": "https://images.unsplash.com/photo-1536896407451-6e3dd976edd1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      "role": "user",
+      "id": 5
+    },
+    {
+      "email": "ronald.richards@groupomania.fr",
+      "password": "$2a$10$lsRAtxAW/kC.Ko2Hel1hbeJeASKH/3K20575AryvSlj/t.upUd5ZC",
+      "lastname": "Richards",
+      "firstname": "Ronald",
+      "position": "Commercial",
+      "picture": "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "role": "user",
+      "id": 6
+    }
+  ],
+  "posts": [
+    {
+      "createdAt": "2022-02-12",
+      "content": "Bienvenue à tous sur notre nouveau réseau social ! N'oubliez pas de rester courtois 😉",
+      "media": "",
+      "userId": 4,
+      "id": 1
+    },
+    {
+      "createdAt": "2022-02-12",
+      "content": "Préparez-vous pour du lourd à la cantine ce midi 😍 #food #mammamia",
+      "media": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "createdAt": "2022-02-12",
+      "content": "Moi entre 2 réunions Zoom... 😴",
+      "media": "https://images.unsplash.com/photo-1639275617881-d4d39df84950?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1633&q=80",
+      "userId": 1,
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "createdAt": "2022-02-12",
+      "content": "Ça donne faim ! 😁",
+      "userId": 3,
+      "postId": 2,
+      "id": 1
+    },
+    {
+      "createdAt": "2022-02-12",
+      "content": "J'en connais un qui va bien dormir en réunion 🤣",
+      "userId": 1,
+      "postId": 2,
+      "id": 2
+    },
+    {
+      "createdAt": "2022-02-12",
+      "content": "Apportez du café à cet homme !",
+      "userId": 2,
+      "postId": 3,
+      "id": 3
+    },
+    {
+      "createdAt": "2022-02-12",
+      "content": "Elle est belle la jeunesse ...",
+      "userId": 4,
+      "postId": 3,
+      "id": 4
+    }
+  ],
+  "likes": [
+    {
+      "userId": 2,
+      "postId": 1,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "postId": 1,
+      "id": 5
+    },
+    {
+      "userId": 4,
+      "postId": 2,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "postId": 2,
+      "id": 4
+    },
+    {
+      "userId": 4,
+      "postId": 3,
+      "id": 3
+    }
+  ]
+}

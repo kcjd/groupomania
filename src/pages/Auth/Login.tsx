@@ -22,7 +22,7 @@ const Login = () => {
     <>
       <VStack spacing={4} mb={16}>
         <Image src={logoIcon} alt="" boxSize={8} />
-        <Heading as="h1" variant="h1">
+        <Heading as="h1" fontSize="2xl">
           Connexion
         </Heading>
       </VStack>
@@ -43,7 +43,7 @@ const Login = () => {
 
       <Text align="center" mt={8}>
         Vous êtes nouveau ?{' '}
-        <Link as={RouterLink} to="/signup" variant="primary">
+        <Link as={RouterLink} to="/signup" color="brand.500" fontWeight="medium">
           Créer un compte
         </Link>
       </Text>

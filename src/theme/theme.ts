@@ -30,7 +30,6 @@ const theme = extendTheme({
       900: 'hsl(221 39% 11%)'
     },
     brand: {
-      50: 'hsl(209 84% 96%)',
       100: 'hsl(209 84% 66%)',
       200: 'hsl(209 84% 61%)',
       300: 'hsl(209 84% 56%)',
@@ -39,62 +38,38 @@ const theme = extendTheme({
       600: 'hsl(209 84% 36%)',
       700: 'hsl(209 84% 31%)',
       800: 'hsl(209 83% 26%)'
-    },
-    danger: {
-      50: 'hsl(353 81% 96%)',
-      400: 'hsl(353 81% 64%)',
-      500: 'hsl(353 81% 51%)',
-      600: 'hsl(353 81% 46%)'
     }
   },
   shadows: {
-    outline: '0 0 0 3px hsl(209 84% 56% / 40%)'
+    outline: '0 0 0 2px hsl(209 84% 56% / 40%)'
   },
   components: {
     Button: {
-      baseStyle: { fontWeight: 'medium' },
+      baseStyle: {
+        fontWeight: 'medium'
+      },
       sizes: {
         lg: {
-          borderRadius: 'lg',
           fontSize: 'md'
         }
       }
     },
-    Heading: {
-      variants: {
-        h1: { fontSize: '2xl' }
-      }
-    },
     Input: {
-      variants: {
-        border: {
-          field: {
-            border: '1px solid',
-            borderColor: 'gray.200',
-            bg: 'transparent',
-            _focus: { borderColor: 'brand.200' },
-            _invalid: { borderColor: 'danger.400' }
-          }
-        }
-      },
       sizes: {
         lg: {
           field: {
-            borderRadius: 'lg',
             fontSize: 'md'
           }
         }
       },
-      defaultProps: { variant: 'border' }
+      defaultProps: {
+        focusBorderColor: 'brand.200'
+      }
     },
     Link: {
       baseStyle: {
-        _hover: { textDecoration: 'none' }
-      },
-      variants: {
-        primary: {
-          color: 'brand.500',
-          fontWeight: 'medium'
+        _hover: {
+          textDecoration: 'none'
         }
       }
     }

@@ -16,7 +16,7 @@ const FormControl = ({ id, label, error, children }: PropsWithChildren<Props>) =
 
       {children}
 
-      <FormErrorMessage color="danger.500">{error?.message}</FormErrorMessage>
+      <FormErrorMessage>{error?.message}</FormErrorMessage>
     </ChakraFormControl>
   )
 }

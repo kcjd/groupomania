@@ -5,10 +5,6 @@ const theme = extendTheme({
     global: {
       'html, body': {
         bg: 'gray.100'
-      },
-      'input:-webkit-autofill': {
-        font: 'inherit',
-        boxShadow: '200px 200px 100px white inset'
       }
     }
   },
@@ -44,6 +40,16 @@ const theme = extendTheme({
     outline: '0 0 0 2px hsl(209 84% 56% / 40%)'
   },
   components: {
+    Avatar: {
+      sizes: {
+        md: {
+          container: {
+            width: 10,
+            height: 10
+          }
+        }
+      }
+    },
     Button: {
       baseStyle: {
         fontWeight: 'medium'

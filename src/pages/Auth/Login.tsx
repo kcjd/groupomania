@@ -1,22 +1,29 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, Navigate } from 'react-router-dom'
 
 import { Button, Heading, Image, Input, Link, Text, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import logoIcon from '../../assets/images/logo-icon.svg'
 import FormControl from '../../components/FormControl'
-import { LoginFields } from '../../types/types'
+import { login, selectAuthUser } from '../../features/authSlice'
+import { LoginValues } from '../../types/types'
 import { loginSchema } from '../../validation/validation'
 
 const Login = () => {
+  const dispatch = useAppDispatch()
+  const authUser = useAppSelector(selectAuthUser)
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<LoginFields>({ resolver: yupResolver(loginSchema) })
+  } = useForm<LoginValues>({ resolver: yupResolver(loginSchema) })
 
-  const onSubmit: SubmitHandler<LoginFields> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<LoginValues> = (data) => dispatch(login(data))
+
+  if (authUser) return <Navigate to="/" replace />
 
   return (
     <>

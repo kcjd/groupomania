@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import App from './App'
-import { store } from './store/store'
+import { store } from './app/store'
 import theme from './theme/theme'
 
 ReactDOM.render(

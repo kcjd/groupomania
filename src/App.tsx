@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import AuthLayout from './components/AuthLayout'
+import PrivateRoute from './components/PrivateRoute'
 import Login from './pages/Auth/Login'
 import Signup from './pages/Auth/Signup'
 import Home from './pages/Home/Home'
@@ -11,9 +12,11 @@ import Users from './pages/Users/Users'
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="users" element={<Users />} />
-      <Route path="profile/:userId" element={<Profile />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/" element={<Home />} />
+        <Route path="users" element={<Users />} />
+        <Route path="profile/:userId" element={<Profile />} />
+      </Route>
 
       <Route path="*" element={<NotFound />} />
 

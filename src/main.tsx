@@ -4,12 +4,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
+import * as timeago from 'timeago.js'
+import fr from 'timeago.js/lib/lang/fr'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
 import App from './App'
 import { store } from './app/store'
 import theme from './theme/theme'
+
+timeago.register('fr', fr)
 
 ReactDOM.render(
   <React.StrictMode>

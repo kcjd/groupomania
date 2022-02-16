@@ -7,12 +7,12 @@ import AuthLayout from './components/AuthLayout'
 import PrivateRoute from './components/PrivateRoute'
 import { getPosts } from './features/postsSlice'
 import { getUsers } from './features/usersSlice'
-import Login from './pages/Auth/Login'
-import Signup from './pages/Auth/Signup'
-import Home from './pages/Home/Home'
-import NotFound from './pages/NotFound/NotFound'
-import Profile from './pages/Profile/Profile'
-import Users from './pages/Users/Users'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import Profile from './pages/Profile'
+import Signup from './pages/Signup'
+import Users from './pages/Users'
 
 const App = () => {
   const dispatch = useAppDispatch()

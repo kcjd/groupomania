@@ -4,12 +4,12 @@ import { Link as RouterLink, Navigate } from 'react-router-dom'
 import { Button, Heading, Image, Input, Link, Stack, Text, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import logoIcon from '../../assets/images/logo-icon.svg'
-import FormControl from '../../components/FormControl'
-import { selectAuthUser, signup } from '../../features/authSlice'
-import { SignupValues } from '../../types/types'
-import { signupSchema } from '../../validation/validation'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import logoIcon from '../assets/images/logo-icon.svg'
+import FormControl from '../components/UI/FormControl'
+import { selectAuthUser, signup } from '../features/authSlice'
+import { SignupValues } from '../types/types'
+import { signupSchema } from '../validation/validation'
 
 const Signup = () => {
   const authUser = useAppSelector(selectAuthUser)

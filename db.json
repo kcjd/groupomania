@@ -140,5 +140,37 @@
       "postId": 3,
       "id": 3
     }
+  ],
+  "follows": [
+    {
+      "userId": 1,
+      "following": 2,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "following": 3,
+      "id": 2
+    },
+    {
+      "userId": 4,
+      "following": 3,
+      "id": 3
+    },
+    {
+      "userId": 4,
+      "following": 6,
+      "id": 4
+    },
+    {
+      "userId": 4,
+      "following": 1,
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "following": 4,
+      "id": 6
+    }
   ]
 }

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../api/api'
+import { RootState } from '../app/store'
 import { FollowData, FollowValues } from '../types/types'
 import { getUsers } from './usersSlice'
 
@@ -33,5 +34,19 @@ export const followsSlice = createSlice({
         followsAdapter.removeOne(state, payload)
       })
 })
+
+export const { selectAll: selectAllFollows } = followsAdapter.getSelectors<RootState>(({ follows }) => follows)
+
+export const selectFollowingByUser = (state: RootState, userId: number | undefined) => {
+  return selectAllFollows(state).filter((follow) => follow.userId === userId)
+}
+
+export const selectFollowersByUser = (state: RootState, userId: number | undefined) => {
+  return selectAllFollows(state).filter((follow) => follow.following === userId)
+}
+
+export const selectFollow = (state: RootState, userId: number | undefined, following: number | undefined) => {
+  return selectAllFollows(state).find((follow) => follow.userId === userId && follow.following == following)
+}
 
 export default followsSlice.reducer

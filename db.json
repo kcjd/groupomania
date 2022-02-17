@@ -143,16 +143,6 @@
   ],
   "follows": [
     {
-      "userId": 1,
-      "following": 2,
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "following": 3,
-      "id": 2
-    },
-    {
       "userId": 4,
       "following": 3,
       "id": 3
@@ -171,6 +161,16 @@
       "userId": 2,
       "following": 4,
       "id": 6
+    },
+    {
+      "userId": 1,
+      "following": 3,
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "following": 2,
+      "id": 8
     }
   ]
 }

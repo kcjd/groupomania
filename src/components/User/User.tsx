@@ -1,6 +1,6 @@
 import { Avatar, HStack, Text } from '@chakra-ui/react'
 
-import { UserData } from '../types/types'
+import { UserData } from '../../types/types'
 
 interface Props {
   user: UserData

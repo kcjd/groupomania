@@ -21,7 +21,7 @@ import { postSchema } from '../../validation/validation'
 import Card from '../UI/Card'
 import FileUpload from '../UI/FileUpload'
 import TextareaAutosize from '../UI/TextareaAutosize'
-import User from '../User'
+import User from '../User/User'
 import Comment from './Comment'
 import LikeButton from './LikeButton'
 

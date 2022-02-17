@@ -1,7 +1,7 @@
 import { Heading, SimpleGrid } from '@chakra-ui/react'
 
 import { useAppSelector } from '../app/hooks'
-import UserCard from '../components/UserCard'
+import UserCard from '../components/User/UserCard'
 import { selectAllUsers } from '../features/usersSlice'
 
 const Users = () => {

@@ -59,4 +59,8 @@ export const postsSlice = createSlice({
 
 export const { selectAll: selectAllPosts } = postsAdapter.getSelectors<RootState>(({ posts }) => posts)
 
+export const selectPostsByUser = (state: RootState, userId: number | undefined) => {
+  return selectAllPosts(state).filter((post) => post.userId === userId)
+}
+
 export default postsSlice.reducer

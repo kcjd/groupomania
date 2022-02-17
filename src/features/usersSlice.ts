@@ -48,4 +48,8 @@ export const usersSlice = createSlice({
       })
 })
 
+export const { selectAll: selectAllUsers, selectById: selectUserById } = usersAdapter.getSelectors<RootState>(
+  ({ users }) => users
+)
+
 export default usersSlice.reducer

@@ -22,3 +22,11 @@ export const loginSchema = yup.object({
   email: yup.string().required(),
   password: yup.string().required()
 })
+
+export const postSchema = yup.object({
+  content: yup.string().required()
+})
+
+export const commentSchema = yup.object({
+  content: yup.string().required()
+})

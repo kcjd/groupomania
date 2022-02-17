@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../api/api'
+import { RootState } from '../app/store'
 import { CommentData, CommentValues } from '../types/types'
 import { getPosts } from './postsSlice'
 
@@ -8,7 +9,6 @@ export const addComment = createAsyncThunk<CommentData, CommentValues>('comments
   const { data: comment } = await api.post('comments', data)
   return comment
 })
-
 
 export const editComment = createAsyncThunk<{ id: number; changes: CommentData }, { id: number; data: CommentValues }>(
   'comments/editComment',
@@ -47,5 +47,11 @@ export const commentsSlice = createSlice({
         commentsAdapter.removeOne(state, payload)
       })
 })
+
+export const { selectAll: selectAllComments } = commentsAdapter.getSelectors<RootState>(({ comments }) => comments)
+
+export const selectCommentsByPost = (state: RootState, postId: number | undefined) => {
+  return selectAllComments(state).filter((comment) => comment.postId === postId)
+}
 
 export default commentsSlice.reducer

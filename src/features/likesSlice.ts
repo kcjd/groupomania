@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../api/api'
+import { RootState } from '../app/store'
 import { LikeData, LikeValues } from '../types/types'
 import { getPosts } from './postsSlice'
 
@@ -33,5 +34,15 @@ export const likesSlice = createSlice({
         likesAdapter.removeOne(state, payload)
       })
 })
+
+export const { selectAll: selectAllLikes } = likesAdapter.getSelectors<RootState>(({ likes }) => likes)
+
+export const selectLikesByPost = (state: RootState, postId: number | undefined) => {
+  return selectAllLikes(state).filter((like) => like.postId === postId)
+}
+
+export const selectLike = (state: RootState, postId: number | undefined, userId: number | undefined) => {
+  return selectAllLikes(state).find((like) => like.postId === postId && like.userId == userId)
+}
 
 export default likesSlice.reducer

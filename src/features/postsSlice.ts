@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../api/api'
+import { RootState } from '../app/store'
 import { CommentData, LikeData, PostData, PostValues } from '../types/types'
 
 interface PostDataExtended extends PostData {
@@ -55,5 +56,7 @@ export const postsSlice = createSlice({
         postsAdapter.removeOne(state, payload)
       })
 })
+
+export const { selectAll: selectAllPosts } = postsAdapter.getSelectors<RootState>(({ posts }) => posts)
 
 export default postsSlice.reducer

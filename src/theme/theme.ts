@@ -58,10 +58,20 @@ const theme = extendTheme({
         lg: {
           fontSize: 'md'
         }
+      },
+      variants: {
+        link: {
+          fontWeight: 'normal'
+        }
       }
     },
     Input: {
       sizes: {
+        sm: {
+          field: {
+            fontSize: 'md'
+          }
+        },
         lg: {
           field: {
             fontSize: 'md'

@@ -1,7 +1,7 @@
 import { Container, HStack } from '@chakra-ui/react'
 
-import { useAppSelector } from '../../app/hooks'
-import { selectAuthUser } from '../../features/authSlice'
+import { selectAuthUser } from '../../store/features/authSlice'
+import { useAppSelector } from '../../store/hooks'
 import AppNavLink from './AppNavLink'
 
 const AppNav = () => {

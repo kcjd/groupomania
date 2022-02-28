@@ -1,31 +1,31 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import api from '../api/api'
-import { RootState } from '../app/store'
-import { FollowData, UserData, UserValues } from '../types/types'
+import api from '../../api/api'
+import { FollowData, UserData, UserValues } from '../../types/types'
+import { RootState } from '../store'
 import { logout } from './authSlice'
 
 interface UserDataExtended extends UserData {
-  follows: FollowData[]
+  following: FollowData[]
 }
 
 export const getUsers = createAsyncThunk<UserDataExtended[]>('users/getUsers', async () => {
-  const { data: users } = await api.get('users?_embed=follows')
+  const { data: users } = await api.get('users')
   return users
 })
 
-export const editUser = createAsyncThunk<{ id: number; changes: UserData }, { id: number; data: UserValues }>(
+export const editUser = createAsyncThunk<{ id: number; changes: UserData }, { userId: number; data: UserValues }>(
   'users/editUser',
-  async ({ id, data }) => {
-    const { data: user } = await api.patch(`users/${id}`, data)
-    return { id, changes: user }
+  async ({ userId, data }) => {
+    const { data: user } = await api.patch(`users/${userId}`, data)
+    return { id: userId, changes: user }
   }
 )
 
-export const deleteUser = createAsyncThunk<number, number>('users/deleteUser', async (id, { dispatch }) => {
-  await api.delete(`users/${id}`)
+export const deleteUser = createAsyncThunk<number, number>('users/deleteUser', async (userId, { dispatch }) => {
+  await api.delete(`users/${userId}`)
   dispatch(logout())
-  return id
+  return userId
 })
 
 const usersAdapter = createEntityAdapter<UserData>()
@@ -37,7 +37,7 @@ export const usersSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getUsers.fulfilled, (state, { payload }) => {
-        const users = payload.map(({ follows, ...user }) => user)
+        const users = payload.map(({ following, ...user }) => user)
         usersAdapter.setAll(state, users)
       })
       .addCase(editUser.fulfilled, (state, { payload }) => {

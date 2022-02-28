@@ -1,7 +1,7 @@
 import { Divider, HStack, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 
-import { useAppSelector } from '../../app/hooks'
-import { selectFollowersByUser, selectFollowingByUser } from '../../features/followsSlice'
+import { selectFollowersByUser, selectFollowingByUser } from '../../store/features/followsSlice'
+import { useAppSelector } from '../../store/hooks'
 import { UserData } from '../../types/types'
 import Card from '../UI/Card'
 

@@ -18,7 +18,7 @@ const Feed = ({ posts }: Props) => {
           </Text>
         </Card>
       ) : (
-        posts.map((post) => <Post post={post} key={post.id} />)
+        [...posts].reverse().map((post) => <Post post={post} key={post.id} />)
       )}
     </VStack>
   )

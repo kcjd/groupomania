@@ -10,7 +10,7 @@ import fr from 'timeago.js/lib/lang/fr'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import App from './App'
-import { store } from './app/store'
+import { store } from './store/store'
 import theme from './theme/theme'
 
 timeago.register('fr', fr)

@@ -1,15 +1,11 @@
-import {
-    HiBadgeCheck, HiDotsHorizontal, HiPencilAlt, HiUserAdd, HiUserRemove, HiX
-} from 'react-icons/hi'
+import { HiPencilAlt, HiUserAdd, HiUserRemove } from 'react-icons/hi'
 
-import {
-    Avatar, Box, Button, HStack, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList, Text,
-    VStack
-} from '@chakra-ui/react'
+import { Avatar, Box, Button, HStack, Icon, Text, VStack } from '@chakra-ui/react'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectAuthUser } from '../../features/authSlice'
-import { addFollow, deleteFollow, selectFollow } from '../../features/followsSlice'
+import { baseURL } from '../../api/api'
+import { selectAuthUser } from '../../store/features/authSlice'
+import { addFollow, deleteFollow, selectFollow } from '../../store/features/followsSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { UserData } from '../../types/types'
 import Card from '../UI/Card'
 
@@ -22,47 +18,23 @@ const ProfileOverview = ({ user }: Props) => {
   const authUser = useAppSelector(selectAuthUser)
 
   const isOwner = authUser?.id === user.id
-  const isModerator = authUser?.role === 'moderator'
 
   const userFollow = useAppSelector((state) => selectFollow(state, authUser?.id, user.id))
 
   const onFollow = () => {
-    if (!authUser) return
-    dispatch(addFollow({ userId: authUser.id, following: user.id }))
+    dispatch(addFollow(user.id))
   }
 
   const onUnfollow = () => {
-    if (!authUser || !userFollow) return
-    dispatch(deleteFollow(userFollow.id))
+    dispatch(deleteFollow(user.id))
   }
 
   return (
     <Card position="relative" d="flex" flexDir="column" alignItems="center" gap={4} overflow="hidden">
       <Box position="absolute" inset={0} h={24} bg="brand.400" />
 
-      {!isOwner && isModerator && (
-        <Menu placement="bottom-end">
-          <MenuButton
-            as={IconButton}
-            position="absolute"
-            top={4}
-            right={4}
-            size="sm"
-            icon={<Icon as={HiDotsHorizontal} boxSize={4} />}
-            aria-label="Options de modération"
-            isRound
-          />
-
-          <MenuList>
-            <MenuItem icon={<Icon as={HiBadgeCheck} boxSize={4} color="gray.500" />}>Définir comme modérateur</MenuItem>
-
-            <MenuItem icon={<Icon as={HiX} boxSize={4} color="gray.500" />}>Supprimer l'utilisateur</MenuItem>
-          </MenuList>
-        </Menu>
-      )}
-
       <Box position="relative" mt={7} p={1} bg="white" borderRadius="full">
-        <Avatar name="" src={user.picture} size="xl" />
+        <Avatar name="" src={baseURL + user.picture} size="xl" />
       </Box>
 
       <VStack spacing={0}>

@@ -4,10 +4,10 @@ import { Link as RouterLink, Navigate } from 'react-router-dom'
 import { Button, Heading, Image, Input, Link, Text, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAppDispatch, useAppSelector } from '../app/hooks'
 import logoIcon from '../assets/images/logo-icon.svg'
 import FormControl from '../components/UI/FormControl'
-import { login, selectAuthUser } from '../features/authSlice'
+import { login, selectAuthUser } from '../store/features/authSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { LoginValues } from '../types/types'
 import { loginSchema } from '../validation/validation'
 

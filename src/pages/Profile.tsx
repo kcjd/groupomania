@@ -2,13 +2,13 @@ import { useParams } from 'react-router-dom'
 
 import { Heading, VStack } from '@chakra-ui/react'
 
-import { useAppSelector } from '../app/hooks'
 import Feed from '../components/Feed'
 import ProfileOverview from '../components/Profile/ProfileOverview'
 import ProfileStats from '../components/Profile/ProfileStats'
-import { selectAuthUser } from '../features/authSlice'
-import { selectPostsByUser } from '../features/postsSlice'
-import { selectUserById } from '../features/usersSlice'
+import { selectAuthUser } from '../store/features/authSlice'
+import { selectPostsByUser } from '../store/features/postsSlice'
+import { selectUserById } from '../store/features/usersSlice'
+import { useAppSelector } from '../store/hooks'
 
 const Profile = () => {
   const params = useParams()

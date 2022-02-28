@@ -1,9 +1,9 @@
 import { Heading, VStack } from '@chakra-ui/react'
 
-import { useAppSelector } from '../app/hooks'
 import Feed from '../components/Feed'
 import Post from '../components/Post/Post'
-import { selectAllPosts } from '../features/postsSlice'
+import { selectAllPosts } from '../store/features/postsSlice'
+import { useAppSelector } from '../store/hooks'
 
 const Home = () => {
   const posts = useAppSelector(selectAllPosts)

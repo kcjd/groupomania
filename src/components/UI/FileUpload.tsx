@@ -41,6 +41,7 @@ const FileUpload = ({ name, control }: Props) => {
       <input
         type="file"
         accept="image/*"
+        name={name}
         ref={inputRef}
         onChange={handleChange}
         aria-label="Sélectionner un fichier"

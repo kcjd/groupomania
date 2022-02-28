@@ -5,14 +5,17 @@ import { Link as RouterLink } from 'react-router-dom'
 import TimeAgo from 'timeago-react'
 
 import {
-    Avatar, Box, Button, HStack, Icon, IconButton, Input, Link, Text, VStack
+  Avatar, Box, Button, HStack, Icon, IconButton, Input, Link, Text, VStack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectAuthUser } from '../../features/authSlice'
-import { addComment, deleteComment, editComment } from '../../features/commentsSlice'
-import { selectUserById } from '../../features/usersSlice'
+import { baseURL } from '../../api/api'
+import { selectAuthUser } from '../../store/features/authSlice'
+import {
+  addComment, deleteComment, editComment, hideComment
+} from '../../store/features/commentsSlice'
+import { selectUserById } from '../../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { CommentData, CommentValues } from '../../types/types'
 import { commentSchema } from '../../validation/validation'
 
@@ -32,27 +35,49 @@ const Comment = ({ comment, postId }: Props) => {
   const [isEditing, setEditing] = useState(!comment)
 
   const authUser = useAppSelector(selectAuthUser)
-  const author = comment ? useAppSelector((state) => selectUserById(state, comment.userId)) : authUser
+  const author = comment ? useAppSelector((state) => selectUserById(state, comment.authorId)) : authUser
 
   const isAuthor = authUser?.id === author?.id
-  const isModerator = authUser?.role === 'moderator'
+  const isModerator = authUser?.role === 'MODERATOR'
+
+  const onHide = () => {
+    if (!postId || !comment) return
+
+    dispatch(hideComment({ postId, commentId: comment.id }))
+  }
 
   const onDelete = () => {
-    if (comment) dispatch(deleteComment(comment.id))
+    if (!postId || !comment) return
+
+    if (comment) {
+      dispatch(deleteComment({ postId, commentId: comment.id }))
+    }
   }
 
   const onSubmit: SubmitHandler<CommentValues> = (data) => {
-    if (!authUser) return
+    if (!postId) return
+
     if (comment) {
-      return dispatch(editComment({ id: comment.id, data })).then(() => setEditing(false))
+      return dispatch(
+        editComment({
+          postId,
+          commentId: comment.id,
+          data
+        })
+      ).then(() => setEditing(false))
     } else if (postId) {
-      return dispatch(addComment({ ...data, postId: postId, userId: authUser.id })).then(() => reset())
+      return dispatch(
+        addComment({
+          postId: postId,
+          data
+        })
+      ).then(() => reset())
     }
   }
 
   return (
     <HStack align="start" spacing={4}>
-      <Avatar name="" src={author?.picture} size="sm" />
+      <Avatar name="" src={baseURL + author?.picture} size="sm" />
 
       {isEditing ? (
         <HStack as="form" flex={1} spacing={4} onSubmit={handleSubmit(onSubmit)}>
@@ -98,16 +123,22 @@ const Comment = ({ comment, postId }: Props) => {
               />
             )}
 
-            {isAuthor && (
-              <Button variant="link" size="sm" onClick={() => setEditing(true)}>
-                modifier
-              </Button>
-            )}
+            {isAuthor ? (
+              <>
+                <Button variant="link" size="sm" onClick={() => setEditing(true)}>
+                  modifier
+                </Button>
 
-            {(isAuthor || isModerator) && (
-              <Button variant="link" size="sm" onClick={onDelete}>
-                supprimer
-              </Button>
+                <Button variant="link" size="sm" onClick={onDelete}>
+                  supprimer
+                </Button>
+              </>
+            ) : (
+              isModerator && (
+                <Button variant="link" size="sm" onClick={onHide}>
+                  masquer
+                </Button>
+              )
             )}
           </HStack>
         </VStack>

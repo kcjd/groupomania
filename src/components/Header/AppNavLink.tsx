@@ -22,6 +22,7 @@ const AppNavLink = ({ to, children }: PropsWithChildren<Props>) => {
       py={3}
       color={isActive ? 'brand.500' : 'gray.500'}
       fontWeight="medium"
+      aria-current={isActive ? 'page' : false}
     >
       {children}
 

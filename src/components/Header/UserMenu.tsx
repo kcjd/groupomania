@@ -2,8 +2,9 @@ import { HiAdjustments, HiLogout } from 'react-icons/hi'
 
 import { Avatar, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { logout, selectAuthUser } from '../../features/authSlice'
+import { baseURL } from '../../api/api'
+import { logout, selectAuthUser } from '../../store/features/authSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 const UserMenu = () => {
   const dispatch = useAppDispatch()
@@ -14,7 +15,7 @@ const UserMenu = () => {
   return (
     <Menu placement="bottom-end">
       <MenuButton as={IconButton} variant="unstyled" aria-label="Menu" isRound>
-        <Avatar name="" src={authUser?.picture} />
+        <Avatar name="" src={baseURL + authUser?.picture} />
       </MenuButton>
 
       <MenuList>

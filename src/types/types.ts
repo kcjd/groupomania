@@ -15,13 +15,9 @@ export interface UserValues {
   picture?: FileList
 }
 
-export interface UserData {
+export interface UserData extends UserValues {
   id: number
-  lastname: string
-  firstname: string
-  position?: string
-  picture?: string
-  role: 'user' | 'moderator'
+  role: 'USER' | 'MODERATOR'
 }
 
 export interface PasswordValues {
@@ -31,43 +27,37 @@ export interface PasswordValues {
 
 export interface PostValues {
   content: string
-  media?: FileList
-  userId: number
+  media?: string
 }
 
-export interface PostData {
+export interface PostData extends PostValues {
   id: number
   createdAt: string
-  content: string
-  media?: string
-  userId: number
+  authorId: number
 }
 
 export interface CommentValues {
   content: string
-  userId: number
-  postId: number
 }
 
 export interface CommentData extends CommentValues {
   id: number
   createdAt: string
+  postId: number
+  authorId: number
 }
 
-export interface LikeValues {
+export interface LikeData {
   userId: number
   postId: number
 }
 
-export interface LikeData extends LikeValues {
-  id: number
-}
-
-export interface FollowValues {
+export interface ReportData {
   userId: number
-  following: number
+  postId: number
 }
 
-export interface FollowData extends FollowValues {
-  id: number
+export interface FollowData {
+  followerId: number
+  followingId: number
 }

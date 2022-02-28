@@ -5,8 +5,8 @@ yup.setLocale({
     required: 'Ce champ est requis'
   },
   string: {
-    min: 'Minimum ${min} caractères',
-    max: 'Maximum ${max} caractères',
+    min: ({ min }) => `Minimum ${min} caractères`,
+    max: ({ max }) => `Maximum ${max} caractères`,
     email: 'Email non valide'
   }
 })

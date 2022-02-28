@@ -1,21 +1,25 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { HiDotsHorizontal, HiExclamation, HiPencil, HiTrash, HiX } from 'react-icons/hi'
+import { HiDotsHorizontal, HiExclamation, HiEyeOff, HiPencil, HiTrash, HiX } from 'react-icons/hi'
 import { Link as RouterLink } from 'react-router-dom'
 import TimeAgo from 'timeago-react'
 
 import {
-    AspectRatio, Box, Button, ButtonGroup, Divider, HStack, Icon, IconButton, Image, Link, Menu,
-    MenuButton, MenuItem, MenuList, Text, VStack
+  AspectRatio, Box, Button, ButtonGroup, Divider, HStack, Icon, IconButton, Image, Link, Menu,
+  MenuButton, MenuItem, MenuList, Text, VStack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectAuthUser } from '../../features/authSlice'
-import { selectCommentsByPost } from '../../features/commentsSlice'
-import { addLike, deleteLike, selectLike, selectLikesByPost } from '../../features/likesSlice'
-import { addPost, deletePost, editPost } from '../../features/postsSlice'
-import { selectUserById } from '../../features/usersSlice'
+import { baseURL } from '../../api/api'
+import { selectAuthUser } from '../../store/features/authSlice'
+import { selectCommentsByPost } from '../../store/features/commentsSlice'
+import { addLike, deleteLike, selectLike, selectLikesByPost } from '../../store/features/likesSlice'
+import {
+  addPost, deletePost, deletePostMedia, editPost, hidePost
+} from '../../store/features/postsSlice'
+import { addReport } from '../../store/features/reportsSlice'
+import { selectUserById } from '../../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { PostData, PostValues } from '../../types/types'
 import { postSchema } from '../../validation/validation'
 import Card from '../UI/Card'
@@ -32,7 +36,7 @@ interface Props {
 const Post = ({ post }: Props) => {
   const dispatch = useAppDispatch()
 
-  const { register, handleSubmit, reset, control, formState } = useForm<PostValues>({
+  const { register, handleSubmit, control, formState } = useForm<PostValues>({
     defaultValues: { content: post?.content },
     resolver: yupResolver(postSchema)
   })
@@ -40,36 +44,59 @@ const Post = ({ post }: Props) => {
   const [isEditing, setEditing] = useState(!post)
 
   const authUser = useAppSelector(selectAuthUser)
-  const author = post ? useAppSelector((state) => selectUserById(state, post.userId)) : authUser
+  const author = post ? useAppSelector((state) => selectUserById(state, post.authorId)) : authUser
   const likes = useAppSelector((state) => selectLikesByPost(state, post?.id)).length
   const userLike = useAppSelector((state) => selectLike(state, post?.id, authUser?.id))
   const comments = useAppSelector((state) => selectCommentsByPost(state, post?.id))
 
   const isAuthor = authUser?.id === author?.id
-  const isModerator = authUser?.role === 'moderator'
+  const isModerator = authUser?.role === 'MODERATOR'
+
+  const onReport = () => {
+    if (!post) return
+
+    dispatch(addReport(post.id))
+  }
 
   const onLike = () => {
-    if (!post || !authUser) return
+    if (!post) return
 
     if (userLike) {
-      dispatch(deleteLike(userLike.id))
+      dispatch(deleteLike(post.id))
     } else {
-      dispatch(addLike({ postId: post.id, userId: authUser.id }))
+      dispatch(addLike(post.id))
     }
+  }
+
+  const onDeleteMedia = () => {
+    if (!post) return
+
+    dispatch(deletePostMedia(post.id))
+  }
+
+  const onHide = () => {
+    if (!post) return
+
+    dispatch(hidePost(post.id))
   }
 
   const onDelete = () => {
     if (!post) return
+
     dispatch(deletePost(post.id))
   }
 
-  const onSubmit: SubmitHandler<PostValues> = (data) => {
-    if (!authUser) return
+  const onSubmit: SubmitHandler<PostValues> = async (data, e) => {
+    const postData = data.media ? new FormData(e?.target) : data
+
     if (post) {
-      return dispatch(editPost({ id: post.id, data })).then(() => setEditing(false))
+      await dispatch(editPost({ postId: post.id, data: postData }))
+      setEditing(false)
     } else {
-      return dispatch(addPost({ ...data, userId: authUser.id })).then(() => reset())
+      await dispatch(addPost(postData))
     }
+
+    e?.target.reset()
   }
 
   return (
@@ -91,20 +118,28 @@ const Post = ({ post }: Props) => {
             />
 
             <MenuList>
-              {!isAuthor && !isModerator && (
-                <MenuItem icon={<Icon as={HiExclamation} boxSize={4} color="gray.500" />}>Signaler</MenuItem>
-              )}
+              {isAuthor ? (
+                <>
+                  <MenuItem icon={<Icon as={HiPencil} boxSize={4} color="gray.500" />} onClick={() => setEditing(true)}>
+                    Modifier
+                  </MenuItem>
 
-              {isAuthor && (
-                <MenuItem icon={<Icon as={HiPencil} boxSize={4} color="gray.500" />} onClick={() => setEditing(true)}>
-                  Modifier
-                </MenuItem>
-              )}
+                  <MenuItem onClick={onDelete} icon={<Icon as={HiTrash} boxSize={4} color="gray.500" />}>
+                    Supprimer
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem icon={<Icon as={HiExclamation} boxSize={4} color="gray.500" />} onClick={onReport}>
+                    Signaler
+                  </MenuItem>
 
-              {(isAuthor || isModerator) && (
-                <MenuItem onClick={onDelete} icon={<Icon as={HiTrash} boxSize={4} color="gray.500" />}>
-                  Supprimer
-                </MenuItem>
+                  {isModerator && (
+                    <MenuItem onClick={onHide} icon={<Icon as={HiEyeOff} boxSize={4} color="gray.500" />}>
+                      Masquer
+                    </MenuItem>
+                  )}
+                </>
               )}
             </MenuList>
           </Menu>
@@ -114,7 +149,7 @@ const Post = ({ post }: Props) => {
       {post?.media && (
         <Box position="relative" mx={-5}>
           <AspectRatio ratio={16 / 9}>
-            <Image src={post.media} alt="" objectFit="cover" />
+            <Image src={baseURL + post.media} alt="" objectFit="cover" />
           </AspectRatio>
 
           {isEditing && (
@@ -125,6 +160,7 @@ const Post = ({ post }: Props) => {
               size="sm"
               icon={<Icon as={HiX} />}
               aria-label="Supprimer"
+              onClick={onDeleteMedia}
               isRound
             />
           )}
@@ -173,7 +209,7 @@ const Post = ({ post }: Props) => {
 
             <VStack align="stretch" spacing={3}>
               {comments?.map((comment) => (
-                <Comment comment={comment} key={comment.id} />
+                <Comment postId={post.id} comment={comment} key={comment.id} />
               ))}
             </VStack>
 

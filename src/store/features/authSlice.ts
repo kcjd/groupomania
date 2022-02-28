@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import api from '../api/api'
-import { RootState } from '../app/store'
-import { LoginValues, SignupValues, UserData } from '../types/types'
+import api from '../../api/api'
+import { LoginValues, SignupValues, UserData } from '../../types/types'
+import { RootState } from '../store'
 
 interface AuthState {
   user: UserData | null
@@ -14,14 +14,14 @@ export interface AuthData {
 }
 
 export const signup = createAsyncThunk<AuthData, SignupValues>('auth/signup', async (data) => {
-  const response = await api.post<AuthData>('signup', data)
+  const response = await api.post<AuthData>('auth/signup', data)
   localStorage.setItem('accessToken', response.data.accessToken)
   localStorage.setItem('user', JSON.stringify(response.data.user))
   return response.data
 })
 
 export const login = createAsyncThunk<AuthData, LoginValues>('auth/login', async (data) => {
-  const response = await api.post<AuthData>('login', data)
+  const response = await api.post<AuthData>('auth/login', data)
   localStorage.setItem('accessToken', response.data.accessToken)
   localStorage.setItem('user', JSON.stringify(response.data.user))
   return response.data

@@ -1,21 +1,23 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import api from '../api/api'
-import { RootState } from '../app/store'
-import { LikeData, LikeValues } from '../types/types'
+import api from '../../api/api'
+import { LikeData } from '../../types/types'
+import { RootState } from '../store'
 import { getPosts } from './postsSlice'
 
-export const addLike = createAsyncThunk<LikeData, LikeValues>('likes/addLike', async (data) => {
-  const { data: like } = await api.post('likes', data)
+export const addLike = createAsyncThunk<LikeData, number>('likes/addLike', async (postId) => {
+  const { data: like } = await api.post(`posts/${postId}/likes`)
   return like
 })
 
-export const deleteLike = createAsyncThunk<number, number>('likes/deleteLike', async (id) => {
-  await api.delete(`likes/${id}`)
-  return id
+export const deleteLike = createAsyncThunk<string, number>('likes/deleteLike', async (postId) => {
+  const { data: like } = await api.delete(`posts/${postId}/likes`)
+  return like.userId + '-' + like.postId
 })
 
-const likesAdapter = createEntityAdapter<LikeData>()
+const likesAdapter = createEntityAdapter<LikeData>({
+  selectId: (like) => like.userId + '-' + like.postId
+})
 
 export const likesSlice = createSlice({
   name: 'likes',
@@ -42,7 +44,7 @@ export const selectLikesByPost = (state: RootState, postId: number | undefined) 
 }
 
 export const selectLike = (state: RootState, postId: number | undefined, userId: number | undefined) => {
-  return selectAllLikes(state).find((like) => like.postId === postId && like.userId == userId)
+  return selectAllLikes(state).find((like) => like.postId === postId && like.userId === userId)
 }
 
 export default likesSlice.reducer

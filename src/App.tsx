@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from './app/hooks'
 import AppLayout from './components/AppLayout'
 import AuthLayout from './components/AuthLayout'
 import PrivateRoute from './components/PrivateRoute'
-import { getPosts } from './features/postsSlice'
-import { getUsers } from './features/usersSlice'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
 import Signup from './pages/Signup'
 import Users from './pages/Users'
+import { getPosts } from './store/features/postsSlice'
+import { getUsers } from './store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from './store/hooks'
 
 const App = () => {
   const dispatch = useAppDispatch()

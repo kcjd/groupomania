@@ -1,18 +1,24 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { ReportData } from '../../types/types'
+import { ApiResponse, ReportData } from '../../types/types'
+import toast from '../../utils/toast'
 import { RootState } from '../store'
 import { getPosts } from './postsSlice'
 
-export const addReport = createAsyncThunk<ReportData, number>('reports/addReport', async (postId) => {
-  const { data: report } = await api.post(`posts/${postId}/reports`)
-  return report
+interface ReportResponse extends ApiResponse {
+  report: ReportData
+}
+
+export const addReport = createAsyncThunk('reports/addReport', async (postId: number) => {
+  const response = await api.post<ReportResponse>(`posts/${postId}/reports`)
+  toast('success', response.data.message)
+  return response.data.report
 })
 
-const reportsAdapter = createEntityAdapter<ReportData>({
-  selectId: (report) => report.userId + '-' + report.postId
-})
+const selectId = (report: ReportData) => report.userId + '-' + report.postId
+
+const reportsAdapter = createEntityAdapter<ReportData>({ selectId })
 
 export const reportsSlice = createSlice({
   name: 'reports',

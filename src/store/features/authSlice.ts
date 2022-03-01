@@ -1,30 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { LoginValues, SignupValues, UserData } from '../../types/types'
+import { ApiResponse, LoginValues, SignupValues, UserData } from '../../types/types'
 import { RootState } from '../store'
+import { selectUserById } from './usersSlice'
 
 interface AuthState {
-  user: UserData | null
+  user: number | null
 }
 
-export interface AuthData {
+interface AuthResponse extends ApiResponse {
   user: UserData
   accessToken: string
 }
 
-export const signup = createAsyncThunk<AuthData, SignupValues>('auth/signup', async (data) => {
-  const response = await api.post<AuthData>('auth/signup', data)
+export const signup = createAsyncThunk('auth/signup', async (data: SignupValues) => {
+  const response = await api.post<AuthResponse>('auth/signup', data)
   localStorage.setItem('accessToken', response.data.accessToken)
-  localStorage.setItem('user', JSON.stringify(response.data.user))
-  return response.data
+  localStorage.setItem('user', JSON.stringify(response.data.user.id))
+  return response.data.user.id
 })
 
-export const login = createAsyncThunk<AuthData, LoginValues>('auth/login', async (data) => {
-  const response = await api.post<AuthData>('auth/login', data)
+export const login = createAsyncThunk('auth/login', async (data: LoginValues) => {
+  const response = await api.post<AuthResponse>('auth/login', data)
   localStorage.setItem('accessToken', response.data.accessToken)
-  localStorage.setItem('user', JSON.stringify(response.data.user))
-  return response.data
+  localStorage.setItem('user', JSON.stringify(response.data.user.id))
+  return response.data.user.id
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -45,10 +46,10 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signup.fulfilled, (state, { payload }) => {
-        state.user = payload.user
+        state.user = payload
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        state.user = payload.user
+        state.user = payload
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null
@@ -56,6 +57,12 @@ export const authSlice = createSlice({
   }
 })
 
-export const selectAuthUser = (state: RootState) => state.auth.user
+export const selectAuthUser = (state: RootState) => {
+  const userId = state.auth.user
+
+  if (!userId) return
+
+  return selectUserById(state, userId)
+}
 
 export default authSlice.reducer

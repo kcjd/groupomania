@@ -1,3 +1,11 @@
+export interface ApiResponse {
+  message: string
+}
+
+export interface ApiError {
+  error: string
+}
+
 export interface LoginValues {
   email: string
   password: string
@@ -12,7 +20,7 @@ export interface UserValues {
   lastname: string
   firstname: string
   position?: string
-  picture?: FileList
+  picture?: string
 }
 
 export interface UserData extends UserValues {

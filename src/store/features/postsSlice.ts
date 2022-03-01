@@ -1,7 +1,10 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { CommentData, LikeData, PostData, PostValues, ReportData } from '../../types/types'
+import {
+  ApiResponse, CommentData, LikeData, PostData, PostValues, ReportData
+} from '../../types/types'
+import toast from '../../utils/toast'
 import { RootState } from '../store'
 
 interface PostDataExtended extends PostData {
@@ -10,36 +13,47 @@ interface PostDataExtended extends PostData {
   reports: ReportData[]
 }
 
-export const getPosts = createAsyncThunk<PostDataExtended[]>('posts/getPosts', async () => {
-  const { data: posts } = await api.get('posts')
-  return posts
+interface PostsReponse extends ApiResponse {
+  posts: PostDataExtended[]
+}
+
+interface PostReponse extends ApiResponse {
+  post: PostData
+}
+
+export const getPosts = createAsyncThunk('posts/getPosts', async () => {
+  const response = await api.get<PostsReponse>('posts')
+  return response.data.posts
 })
 
-export const addPost = createAsyncThunk<PostData, PostValues | FormData>('posts/addPost', async (data) => {
-  const { data: post } = await api.post('posts', data)
-  return post
+export const addPost = createAsyncThunk('posts/addPost', async (data: PostValues | FormData) => {
+  const response = await api.post<PostReponse>('posts', data)
+  return response.data.post
 })
 
-export const editPost = createAsyncThunk<
-  { id: number; changes: PostData },
-  { postId: number; data: PostValues | FormData }
->('posts/editPost', async ({ postId, data }) => {
-  const { data: post } = await api.patch(`posts/${postId}`, data)
-  return { id: postId, changes: post }
-})
+export const editPost = createAsyncThunk(
+  'posts/editPost',
+  async ({ postId, data }: { postId: number; data: PostValues | FormData }) => {
+    const response = await api.patch<PostReponse>(`posts/${postId}`, data)
+    return { id: postId, changes: response.data.post }
+  }
+)
 
-export const hidePost = createAsyncThunk<number, number>('posts/hidePost', async (postId) => {
-  await api.patch(`posts/${postId}/hide`)
+export const hidePost = createAsyncThunk('posts/hidePost', async (postId: number) => {
+  const response = await api.patch<PostReponse>(`posts/${postId}/hide`)
+  toast('success', response.data.message)
   return postId
 })
 
-export const deletePostMedia = createAsyncThunk<number, number>('posts/deletePostMedia', async (postId) => {
-  await api.delete(`posts/${postId}/media`)
+export const deletePostMedia = createAsyncThunk('posts/deletePostMedia', async (postId: number) => {
+  const response = await api.delete<PostReponse>(`posts/${postId}/media`)
+  toast('success', response.data.message)
   return postId
 })
 
-export const deletePost = createAsyncThunk<number, number>('posts/deletePost', async (postId) => {
-  await api.delete(`posts/${postId}`)
+export const deletePost = createAsyncThunk('posts/deletePost', async (postId: number) => {
+  const response = await api.delete<PostReponse>(`posts/${postId}`)
+  toast('success', response.data.message)
   return postId
 })
 

@@ -1,23 +1,27 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { FollowData } from '../../types/types'
+import { ApiResponse, FollowData } from '../../types/types'
 import { RootState } from '../store'
 import { getUsers } from './usersSlice'
 
-export const addFollow = createAsyncThunk<FollowData, number>('follows/addFollow', async (userId) => {
-  const { data: follow } = await api.post(`users/${userId}/follows`)
-  return follow
+interface FollowResponse extends ApiResponse {
+  follow: FollowData
+}
+
+export const addFollow = createAsyncThunk('follows/addFollow', async (userId: number) => {
+  const response = await api.post<FollowResponse>(`users/${userId}/follows`)
+  return response.data.follow
 })
 
-export const deleteFollow = createAsyncThunk<string, number>('follows/deleteFollow', async (userId) => {
-  const { data: follow } = await api.delete(`users/${userId}/follows`)
-  return follow.followerId + '-' + follow.followingId
+export const deleteFollow = createAsyncThunk('follows/deleteFollow', async (userId: number) => {
+  const response = await api.delete<FollowResponse>(`users/${userId}/follows`)
+  return response.data.follow
 })
 
-const followsAdapter = createEntityAdapter<FollowData>({
-  selectId: (follow) => follow.followerId + '-' + follow.followingId
-})
+const selectId = (follow: FollowData) => follow.followerId + '-' + follow.followingId
+
+const followsAdapter = createEntityAdapter<FollowData>({ selectId })
 
 export const followsSlice = createSlice({
   name: 'likes',
@@ -33,7 +37,7 @@ export const followsSlice = createSlice({
         followsAdapter.addOne(state, payload)
       })
       .addCase(deleteFollow.fulfilled, (state, { payload }) => {
-        followsAdapter.removeOne(state, payload)
+        followsAdapter.removeOne(state, selectId(payload))
       })
 })
 

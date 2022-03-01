@@ -1,38 +1,45 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { CommentData, CommentValues } from '../../types/types'
+import { ApiResponse, CommentData, CommentValues } from '../../types/types'
+import toast from '../../utils/toast'
 import { RootState } from '../store'
 import { getPosts } from './postsSlice'
 
-export const addComment = createAsyncThunk<CommentData, { postId: number; data: CommentValues }>(
+interface CommentResponse extends ApiResponse {
+  comment: CommentData
+}
+
+export const addComment = createAsyncThunk(
   'comments/addComment',
-  async ({ postId, data }) => {
-    const { data: comment } = await api.post(`posts/${postId}/comments`, data)
-    return comment
+  async ({ postId, data }: { postId: number; data: CommentValues }) => {
+    const response = await api.post<CommentResponse>(`posts/${postId}/comments`, data)
+    return response.data.comment
   }
 )
 
-export const editComment = createAsyncThunk<
-  { id: number; changes: CommentData },
-  { postId: number; commentId: number; data: CommentValues }
->('comments/editComment', async ({ postId, commentId, data }) => {
-  const { data: comment } = await api.patch(`posts/${postId}/comments/${commentId}`, data)
-  return { id: commentId, changes: comment }
-})
+export const editComment = createAsyncThunk(
+  'comments/editComment',
+  async ({ postId, commentId, data }: { postId: number; commentId: number; data: CommentValues }) => {
+    const response = await api.patch<CommentResponse>(`posts/${postId}/comments/${commentId}`, data)
+    return { id: commentId, changes: response.data.comment }
+  }
+)
 
-export const hideComment = createAsyncThunk<number, { postId: number; commentId: number }>(
+export const hideComment = createAsyncThunk(
   'comments/hideComment',
-  async ({ postId, commentId }) => {
-    await api.patch(`posts/${postId}/comments/${commentId}/hide`)
+  async ({ postId, commentId }: { postId: number; commentId: number }) => {
+    const response = await api.patch<CommentResponse>(`posts/${postId}/comments/${commentId}/hide`)
+    toast('success', response.data.message)
     return commentId
   }
 )
 
-export const deleteComment = createAsyncThunk<number, { postId: number; commentId: number }>(
+export const deleteComment = createAsyncThunk(
   'comments/deleteComment',
-  async ({ postId, commentId }) => {
-    await api.delete(`posts/${postId}/comments/${commentId}`)
+  async ({ postId, commentId }: { postId: number; commentId: number }) => {
+    const response = await api.delete<CommentResponse>(`posts/${postId}/comments/${commentId}`)
+    toast('success', response.data.message)
     return commentId
   }
 )

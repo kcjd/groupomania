@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import AppLayout from './components/AppLayout'
 import AuthLayout from './components/AuthLayout'
+import Preferences from './components/Preferences/Preferences'
 import PrivateRoute from './components/PrivateRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -20,28 +21,31 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUsers())
-      dispatch(getPosts())
+      Promise.all([dispatch(getUsers()), dispatch(getPosts())])
     }
   }, [user])
 
   return (
-    <Routes>
-      <Route element={<AppLayout />}>
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="users" element={<Users />} />
-          <Route path="profile/:userId" element={<Profile />} />
+    <>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route element={<PrivateRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="users" element={<Users />} />
+            <Route path="profile/:userId" element={<Profile />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Route>
+        <Route element={<AuthLayout />}>
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+      </Routes>
 
-      <Route element={<AuthLayout />}>
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
-      </Route>
-    </Routes>
+      <Preferences />
+    </>
   )
 }
 

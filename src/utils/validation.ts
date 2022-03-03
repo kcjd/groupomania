@@ -12,10 +12,10 @@ yup.setLocale({
 })
 
 export const signupSchema = yup.object({
-  lastname: yup.string().required(),
-  firstname: yup.string().required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required()
+  lastname: yup.string().max(30).required(),
+  firstname: yup.string().max(30).required(),
+  email: yup.string().email().max(255).required(),
+  password: yup.string().min(8).max(20).required()
 })
 
 export const loginSchema = yup.object({
@@ -24,20 +24,27 @@ export const loginSchema = yup.object({
 })
 
 export const postSchema = yup.object({
-  content: yup.string().required()
+  content: yup.string().max(255).required()
 })
 
 export const commentSchema = yup.object({
-  content: yup.string().required()
+  content: yup.string().max(255).required()
 })
 
 export const userSchema = yup.object({
-  lastname: yup.string().required(),
-  firstname: yup.string().required(),
-  position: yup.string()
+  lastname: yup.string().max(30).required(),
+  firstname: yup.string().max(30).required(),
+  position: yup.string().max(30).nullable()
 })
 
 export const passwordSchema = yup.object({
   password: yup.string().required(),
-  newPassword: yup.string().required()
+  newPassword: yup.string().min(8).max(20).required()
 })
+
+export type SignupValues = yup.InferType<typeof signupSchema>
+export type LoginValues = yup.InferType<typeof loginSchema>
+export type PostValues = yup.InferType<typeof postSchema>
+export type CommentValues = yup.InferType<typeof commentSchema>
+export type ProfileValues = yup.InferType<typeof userSchema>
+export type PasswordValues = yup.InferType<typeof passwordSchema>

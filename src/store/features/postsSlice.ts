@@ -1,10 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import {
-  ApiResponse, CommentData, LikeData, PostData, PostValues, ReportData
-} from '../../types/types'
-import toast from '../../utils/toast'
+import { ApiResponse, CommentData, LikeData, PostData, ReportData } from '../../types/types'
+import { PostValues } from '../../utils/validation'
 import { RootState } from '../store'
 
 interface PostDataExtended extends PostData {
@@ -40,20 +38,17 @@ export const editPost = createAsyncThunk(
 )
 
 export const hidePost = createAsyncThunk('posts/hidePost', async (postId: number) => {
-  const response = await api.patch<PostReponse>(`posts/${postId}/hide`)
-  toast('success', response.data.message)
+  await api.patch<PostReponse>(`posts/${postId}/hide`)
   return postId
 })
 
 export const deletePostMedia = createAsyncThunk('posts/deletePostMedia', async (postId: number) => {
-  const response = await api.delete<PostReponse>(`posts/${postId}/media`)
-  toast('success', response.data.message)
+  await api.delete<PostReponse>(`posts/${postId}/media`)
   return postId
 })
 
 export const deletePost = createAsyncThunk('posts/deletePost', async (postId: number) => {
-  const response = await api.delete<PostReponse>(`posts/${postId}`)
-  toast('success', response.data.message)
+  await api.delete<PostReponse>(`posts/${postId}`)
   return postId
 })
 

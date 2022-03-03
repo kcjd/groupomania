@@ -1,8 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { ApiResponse, FollowData, PasswordValues, UserData, UserValues } from '../../types/types'
-import toast from '../../utils/toast'
+import { ApiResponse, FollowData, UserData } from '../../types/types'
+import { PasswordValues, ProfileValues } from '../../utils/validation'
 import { RootState } from '../store'
 import { logout } from './authSlice'
 
@@ -25,9 +25,8 @@ export const getUsers = createAsyncThunk('users/getUsers', async () => {
 
 export const editProfile = createAsyncThunk(
   'users/editProfile',
-  async ({ userId, data }: { userId: number; data: UserValues | FormData }) => {
+  async ({ userId, data }: { userId: number; data: ProfileValues | FormData }) => {
     const response = await api.patch<UserResponse>(`users/${userId}`, data)
-    toast('success', response.data.message)
     return { id: userId, changes: response.data.user }
   }
 )
@@ -35,21 +34,18 @@ export const editProfile = createAsyncThunk(
 export const editPassword = createAsyncThunk(
   'users/editPassword',
   async ({ userId, data }: { userId: number; data: PasswordValues }) => {
-    const response = await api.patch<UserResponse>(`users/${userId}/password`, data)
-    toast('success', response.data.message)
+    await api.patch<UserResponse>(`users/${userId}/password`, data)
   }
 )
 
 export const deleteUserPicture = createAsyncThunk('users/deleteUserPicture', async (userId: number) => {
   const response = await api.delete<UserResponse>(`users/${userId}/picture`)
-  toast('success', response.data.message)
   return { id: userId, changes: response.data.user }
 })
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (userId: number, { dispatch }) => {
-  const response = await api.delete<UserResponse>(`users/${userId}`)
+  await api.delete<UserResponse>(`users/${userId}`)
   dispatch(logout())
-  toast('success', response.data.message)
   return userId
 })
 

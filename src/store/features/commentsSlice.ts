@@ -1,8 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { ApiResponse, CommentData, CommentValues } from '../../types/types'
-import toast from '../../utils/toast'
+import { ApiResponse, CommentData } from '../../types/types'
+import { CommentValues } from '../../utils/validation'
 import { RootState } from '../store'
 import { getPosts } from './postsSlice'
 
@@ -29,8 +29,7 @@ export const editComment = createAsyncThunk(
 export const hideComment = createAsyncThunk(
   'comments/hideComment',
   async ({ postId, commentId }: { postId: number; commentId: number }) => {
-    const response = await api.patch<CommentResponse>(`posts/${postId}/comments/${commentId}/hide`)
-    toast('success', response.data.message)
+    await api.patch<CommentResponse>(`posts/${postId}/comments/${commentId}/hide`)
     return commentId
   }
 )
@@ -38,8 +37,7 @@ export const hideComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'comments/deleteComment',
   async ({ postId, commentId }: { postId: number; commentId: number }) => {
-    const response = await api.delete<CommentResponse>(`posts/${postId}/comments/${commentId}`)
-    toast('success', response.data.message)
+    await api.delete<CommentResponse>(`posts/${postId}/comments/${commentId}`)
     return commentId
   }
 )

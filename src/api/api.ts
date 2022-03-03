@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 
-import { ApiError } from '../types/types'
+import { ApiError, ApiResponse } from '../types/types'
 import toast from '../utils/toast'
 
 export const baseURL = 'http://localhost:5500/'
@@ -20,7 +20,12 @@ api.interceptors.request.use((config) => {
 })
 
 api.interceptors.response.use(
-  (res) => res,
+  (res: AxiosResponse<ApiResponse>) => {
+    if (res.data.message) {
+      toast('success', res.data.message)
+    }
+    return res
+  },
   (err: AxiosError<ApiError>) => {
     toast('error', err.response?.data.error || 'Le serveur ne répond pas')
   }

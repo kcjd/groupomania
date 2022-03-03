@@ -2,7 +2,6 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 
 import api from '../../api/api'
 import { ApiResponse, ReportData } from '../../types/types'
-import toast from '../../utils/toast'
 import { RootState } from '../store'
 import { getPosts } from './postsSlice'
 
@@ -12,7 +11,6 @@ interface ReportResponse extends ApiResponse {
 
 export const addReport = createAsyncThunk('reports/addReport', async (postId: number) => {
   const response = await api.post<ReportResponse>(`posts/${postId}/reports`)
-  toast('success', response.data.message)
   return response.data.report
 })
 

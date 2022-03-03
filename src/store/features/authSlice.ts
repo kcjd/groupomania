@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import api from '../../api/api'
-import { ApiResponse, LoginValues, SignupValues, UserData } from '../../types/types'
+import { ApiResponse, UserData } from '../../types/types'
+import { LoginValues, SignupValues } from '../../utils/validation'
 import { RootState } from '../store'
 import { selectUserById } from './usersSlice'
 

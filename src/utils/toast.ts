@@ -5,15 +5,12 @@ import theme from '../theme/theme'
 const createToast = createStandaloneToast({ theme })
 
 export default (status: AlertStatus, message: string) => {
-  const existingToast = document.querySelector('.chakra-toast')
-
-  if (existingToast) {
-    return
-  }
+  createToast.closeAll()
 
   createToast({
     description: message,
     status,
-    variant: 'subtle'
+    variant: 'subtle',
+    duration: 4000
   })
 }

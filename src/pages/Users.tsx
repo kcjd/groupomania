@@ -1,5 +1,7 @@
-import { Heading, SimpleGrid } from '@chakra-ui/react'
+import { Text, VStack } from '@chakra-ui/react'
 
+import Card from '../components/UI/Card'
+import MainHeading from '../components/UI/MainHeading'
 import UserCard from '../components/User/UserCard'
 import { selectAllUsers } from '../store/features/usersSlice'
 import { useAppSelector } from '../store/hooks'
@@ -9,15 +11,21 @@ const Users = () => {
 
   return (
     <>
-      <Heading as="h1" fontSize="md" fontWeight="semibold" mb={6} color="gray.600">
-        Tous les utilisateurs
-      </Heading>
+      <MainHeading>Tous les utilisateurs</MainHeading>
 
-      <SimpleGrid columns={[1, 2]} gap={4}>
-        {users.map((user) => (
-          <UserCard user={user} key={user.id} />
-        ))}
-      </SimpleGrid>
+      {users.length < 1 ? (
+        <Card>
+          <Text color="gray.500" fontSize="sm" textAlign="center">
+            Aucun utilisateur
+          </Text>
+        </Card>
+      ) : (
+        <VStack align="stretch" spacing={4}>
+          {users.map((user) => (
+            <UserCard user={user} key={user.id} />
+          ))}
+        </VStack>
+      )}
     </>
   )
 }

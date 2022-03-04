@@ -31,8 +31,8 @@ const FileUpload = ({ name, control }: Props) => {
   return (
     <>
       <ButtonGroup isAttached>
-        <Button maxWidth={40} leftIcon={<Icon as={HiCamera} />} onClick={onClick}>
-          <Text isTruncated>{value?.[0]?.name || 'Photo'}</Text>
+        <Button leftIcon={<Icon as={HiCamera} />} onClick={onClick}>
+          <Text>Image</Text>
         </Button>
 
         {value?.length > 0 && <IconButton icon={<Icon as={HiX} />} aria-label="Supprimer" onClick={onDelete} />}

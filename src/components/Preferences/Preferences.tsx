@@ -1,8 +1,8 @@
 import { HiX } from 'react-icons/hi'
 
 import {
-  Heading, Icon, IconButton, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Tab,
-  TabList, TabPanel, TabPanels, Tabs
+  Icon, IconButton, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Tab, TabList,
+  TabPanel, TabPanels, Tabs
 } from '@chakra-ui/react'
 
 import { selectAuthUser } from '../../store/features/authSlice'
@@ -27,11 +27,8 @@ const Preferences = () => {
       <ModalOverlay />
 
       <ModalContent>
-        <ModalHeader d="flex" justifyContent="space-between" alignItems="center">
-          <Heading as="h3" fontSize="lg" fontWeight="semibold">
-            Préférences
-          </Heading>
-
+        <ModalHeader d="flex" justifyContent="space-between" alignItems="center" fontSize="lg" fontWeight="semibold">
+          Préférences
           <IconButton
             size="sm"
             variant="ghost"

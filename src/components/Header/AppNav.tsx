@@ -1,11 +1,10 @@
 import { Container, HStack } from '@chakra-ui/react'
 
-import { selectAuthUser } from '../../store/features/authSlice'
 import { useAppSelector } from '../../store/hooks'
 import AppNavLink from './AppNavLink'
 
 const AppNav = () => {
-  const authUser = useAppSelector(selectAuthUser)
+  const { user } = useAppSelector((state) => state.auth)
 
   return (
     <HStack bg="white">
@@ -15,7 +14,7 @@ const AppNav = () => {
 
           <AppNavLink to="/users">Utilisateurs</AppNavLink>
 
-          <AppNavLink to={`/profile/${authUser?.id}`}>Mon profil</AppNavLink>
+          <AppNavLink to={`/users/${user}`}>Profil</AppNavLink>
         </HStack>
       </Container>
     </HStack>

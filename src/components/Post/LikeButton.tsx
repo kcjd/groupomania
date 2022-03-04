@@ -15,16 +15,16 @@ const LikeButton = ({ value, isActive, onClick }: Props) => {
       size="sm"
       variant="blank"
       justifyContent="start"
+      fontWeight="semibold"
       leftIcon={
         <motion.div
           animate={{
-            scale: isActive ? [1, 1.2, 1] : [1, 0.9, 1],
-            opacity: isActive ? 1 : 0.5
+            scale: isActive ? [1, 1.2, 1] : [1, 0.9, 1]
           }}
           transition={{ duration: 0.3 }}
           initial={false}
         >
-          <Icon as={HiHeart} boxSize={6} color={isActive ? 'red.400' : undefined} />
+          <Icon as={HiHeart} boxSize={6} color={isActive ? 'red.400' : 'gray.400'} />
         </motion.div>
       }
       onClick={onClick}

@@ -6,10 +6,10 @@ import Header from './Header/Header'
 
 const AppLayout = () => {
   return (
-    <Grid templateRows="auto 1fr" minH="100vh">
+    <Grid templateRows="auto 1fr " minH="100vh">
       <Header />
 
-      <Container as="main" maxW="container.md" py={8}>
+      <Container as="main" minW={0} maxW="container.md" pt={8} pb={20}>
         <Outlet />
       </Container>
     </Grid>

@@ -1,9 +1,13 @@
-import { HiChevronLeft } from 'react-icons/hi'
+import { HiExclamationCircle } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, Heading, Icon, Text, VStack } from '@chakra-ui/react'
+import { Button, Heading, Icon, VStack } from '@chakra-ui/react'
 
-const NotFound = () => {
+interface Props {
+  message?: string
+}
+
+const NotFound = ({ message }: Props) => {
   const navigate = useNavigate()
 
   const onClick = () => navigate(-1)
@@ -11,16 +15,14 @@ const NotFound = () => {
   return (
     <VStack justify="center" spacing={8} h="full">
       <VStack>
-        <Text fontSize="5xl" fontWeight="semibold">
-          404
-        </Text>
+        <Icon as={HiExclamationCircle} boxSize={16} color="gray.300" />
 
-        <Heading as="h1" color="gray.600" fontSize="lg" fontWeight="normal">
-          La page demandée n'existe pas
+        <Heading as="h1" color="gray.600" fontSize="md" fontWeight="semibold">
+          {message || "Cette page n'existe pas"}
         </Heading>
       </VStack>
 
-      <Button colorScheme="brand" leftIcon={<Icon as={HiChevronLeft} boxSize={5} />} onClick={onClick}>
+      <Button colorScheme="brand" onClick={onClick}>
         Retour
       </Button>
     </VStack>

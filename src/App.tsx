@@ -31,8 +31,11 @@ const App = () => {
         <Route element={<AppLayout />}>
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
-            <Route path="users" element={<Users />} />
-            <Route path="profile/:userId" element={<Profile />} />
+
+            <Route path="users">
+              <Route index element={<Users />} />
+              <Route path=":userId" element={<Profile />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<NotFound />} />

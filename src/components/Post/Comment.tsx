@@ -4,20 +4,18 @@ import { HiCheck, HiReply } from 'react-icons/hi'
 import { Link as RouterLink } from 'react-router-dom'
 import TimeAgo from 'timeago-react'
 
-import {
-  Avatar, Box, Button, HStack, Icon, IconButton, Input, Link, Text, VStack
-} from '@chakra-ui/react'
+import { Box, Button, HStack, Icon, IconButton, Input, Link, Text, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { baseURL } from '../../api/api'
 import { selectAuthUser } from '../../store/features/authSlice'
 import {
   addComment, deleteComment, editComment, hideComment
 } from '../../store/features/commentsSlice'
 import { selectUserById } from '../../store/features/usersSlice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { CommentData, CommentValues } from '../../types/types'
-import { commentSchema } from '../../validation/validation'
+import { CommentData } from '../../types/types'
+import { commentSchema, CommentValues } from '../../utils/validation'
+import Avatar from '../User/Avatar'
 
 interface Props {
   comment?: CommentData
@@ -77,7 +75,7 @@ const Comment = ({ comment, postId }: Props) => {
 
   return (
     <HStack align="start" spacing={4}>
-      <Avatar name="" src={baseURL + author?.picture} size="sm" />
+      <Avatar user={author} size="sm" />
 
       {isEditing ? (
         <HStack as="form" flex={1} spacing={4} onSubmit={handleSubmit(onSubmit)}>
@@ -100,15 +98,15 @@ const Comment = ({ comment, postId }: Props) => {
           />
         </HStack>
       ) : (
-        <VStack align="stretch" spacing={1} flex={1}>
+        <VStack align="stretch" spacing={1} flex={1} maxW="lg">
           <Box maxW="max-content" p={2} borderRadius="lg" bg="gray.100" color="gray.700">
-            <Text fontWeight="semibold">
-              <Link as={RouterLink} to={`/profile/${author?.id}`}>
+            <Text>
+              <Link as={RouterLink} to={`/users/${author?.id}`} mr={2} fontWeight="semibold">
                 {author?.firstname} {author?.lastname}
               </Link>
-            </Text>
 
-            <Text>{comment?.content}</Text>
+              {comment?.content}
+            </Text>
           </Box>
 
           <HStack spacing={3}>

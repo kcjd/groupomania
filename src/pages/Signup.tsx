@@ -8,18 +8,15 @@ import logoIcon from '../assets/images/logo-icon.svg'
 import FormControl from '../components/UI/FormControl'
 import { selectAuthUser, signup } from '../store/features/authSlice'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { SignupValues } from '../types/types'
-import { signupSchema } from '../validation/validation'
+import { signupSchema, SignupValues } from '../utils/validation'
 
 const Signup = () => {
   const authUser = useAppSelector(selectAuthUser)
   const dispatch = useAppDispatch()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<SignupValues>({ resolver: yupResolver(signupSchema) })
+  const { register, handleSubmit, formState } = useForm<SignupValues>({
+    resolver: yupResolver(signupSchema)
+  })
 
   const onSubmit: SubmitHandler<SignupValues> = (data) => dispatch(signup(data))
 
@@ -29,6 +26,7 @@ const Signup = () => {
     <>
       <VStack spacing={4} mb={16}>
         <Image src={logoIcon} alt="" boxSize={8} />
+
         <Heading as="h1" fontSize="2xl">
           Inscription
         </Heading>
@@ -36,24 +34,24 @@ const Signup = () => {
 
       <VStack as="form" spacing={6} align="stretch" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Stack direction={['column', 'row']} spacing={[6, 4]}>
-          <FormControl id="lastname" label="Nom" error={errors.lastname}>
+          <FormControl id="lastname" label="Nom" error={formState.errors.lastname}>
             <Input id="lastname" size="lg" {...register('lastname')} />
           </FormControl>
 
-          <FormControl id="firstname" label="Prénom" error={errors.firstname}>
+          <FormControl id="firstname" label="Prénom" error={formState.errors.firstname}>
             <Input id="firstname" size="lg" {...register('firstname')} />
           </FormControl>
         </Stack>
 
-        <FormControl id="email" label="Email" error={errors.email}>
+        <FormControl id="email" label="Email" error={formState.errors.email}>
           <Input id="email" type="email" size="lg" {...register('email')} />
         </FormControl>
 
-        <FormControl id="password" label="Mot de passe" error={errors.password}>
+        <FormControl id="password" label="Mot de passe" error={formState.errors.password}>
           <Input id="password" type="password" size="lg" {...register('password')} />
         </FormControl>
 
-        <Button type="submit" size="lg" colorScheme="brand" isLoading={isSubmitting} isFullWidth>
+        <Button type="submit" size="lg" colorScheme="brand" isLoading={formState.isSubmitting} isFullWidth>
           Inscription
         </Button>
       </VStack>

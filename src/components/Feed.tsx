@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react'
+
 import { Text, VStack } from '@chakra-ui/react'
 
 import { PostData } from '../types/types'
@@ -8,9 +10,11 @@ interface Props {
   posts: PostData[]
 }
 
-const Feed = ({ posts }: Props) => {
+const Feed = ({ posts, children }: PropsWithChildren<Props>) => {
   return (
-    <VStack as="section" align="stretch" spacing={8}>
+    <VStack align="stretch" spacing={[4, 8]}>
+      {children}
+
       {posts.length < 1 ? (
         <Card>
           <Text color="gray.500" fontSize="sm" textAlign="center">
@@ -18,7 +22,7 @@ const Feed = ({ posts }: Props) => {
           </Text>
         </Card>
       ) : (
-        [...posts].reverse().map((post) => <Post post={post} key={post.id} />)
+        posts.map((post) => <Post post={post} key={post.id} />).reverse()
       )}
     </VStack>
   )

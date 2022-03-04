@@ -1,7 +1,6 @@
-import { Heading, VStack } from '@chakra-ui/react'
-
 import Feed from '../components/Feed'
 import Post from '../components/Post/Post'
+import MainHeading from '../components/UI/MainHeading'
 import { selectAllPosts } from '../store/features/postsSlice'
 import { useAppSelector } from '../store/hooks'
 
@@ -10,15 +9,11 @@ const Home = () => {
 
   return (
     <>
-      <Heading as="h1" mb={6} fontSize="md" fontWeight="semibold" color="gray.600">
-        Fil d'actualité
-      </Heading>
+      <MainHeading>Fil d'actualité</MainHeading>
 
-      <VStack align="stretch" spacing={8}>
+      <Feed posts={posts}>
         <Post />
-
-        <Feed posts={posts} />
-      </VStack>
+      </Feed>
     </>
   )
 }

@@ -26,7 +26,9 @@ const Comment = ({ comment, postId }: Props) => {
   const dispatch = useAppDispatch()
 
   const { register, handleSubmit, reset, formState } = useForm<CommentValues>({
-    defaultValues: { content: comment?.content },
+    defaultValues: {
+      content: comment?.content
+    },
     resolver: yupResolver(commentSchema)
   })
 

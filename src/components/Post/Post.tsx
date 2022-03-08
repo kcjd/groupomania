@@ -34,18 +34,20 @@ interface Props {
 }
 
 interface FormValues extends PostValues {
-  media: FileList
+  file: FileList
 }
 
 const Post = ({ post }: Props) => {
   const dispatch = useAppDispatch()
 
   const { register, handleSubmit, control, formState, watch, reset } = useForm<FormValues>({
-    defaultValues: { content: post?.content },
+    defaultValues: {
+      content: post ? post.content : ''
+    },
     resolver: yupResolver(postSchema)
   })
 
-  const selectedFile = watch('media')
+  const selectedFile = watch('file')
 
   const [isEditing, setEditing] = useState(!post)
 
@@ -91,14 +93,14 @@ const Post = ({ post }: Props) => {
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (data, e) => {
-    const postData = data.media ? new FormData(e?.target) : data
+    const postData = data.file ? new FormData(e?.target) : data
 
     if (post) {
-      await dispatch(editPost({ postId: post.id, data: postData }))
+      await dispatch(editPost({ postId: post.id, data: postData })).unwrap()
       reset()
       setEditing(false)
     } else {
-      await dispatch(addPost(postData))
+      await dispatch(addPost(postData)).unwrap()
       reset()
     }
   }
@@ -176,7 +178,7 @@ const Post = ({ post }: Props) => {
             {post?.media ? (
               <Button onClick={onDeleteMedia}>Supprimer l'image</Button>
             ) : (
-              <FileUpload name="media" control={control} />
+              <FileUpload name="file" control={control} />
             )}
 
             <Button type="submit" colorScheme="brand" isLoading={formState.isSubmitting}>

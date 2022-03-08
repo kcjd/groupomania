@@ -13,7 +13,7 @@ import FormControl from '../UI/FormControl'
 import Avatar from '../User/Avatar'
 
 interface FormValues extends ProfileValues {
-  picture: FileList
+  file: FileList
 }
 
 const Profile = () => {
@@ -29,7 +29,7 @@ const Profile = () => {
     resolver: yupResolver(userSchema)
   })
 
-  const selectedFile = watch('picture')
+  const selectedFile = watch('file')
 
   const onDeletePicture = () => {
     if (!authUser) return
@@ -37,12 +37,12 @@ const Profile = () => {
     dispatch(deleteUserPicture(authUser.id))
   }
 
-  const onSubmit: SubmitHandler<FormValues> = async (data, e) => {
-    const profileData = data.picture ? new FormData(e?.target) : data
+  const onSubmit: SubmitHandler<FormValues> = (data, e) => {
+    const profileData = data.file ? new FormData(e?.target) : data
 
     if (!authUser) return
 
-    await dispatch(editProfile({ userId: authUser.id, data: profileData }))
+    return dispatch(editProfile({ userId: authUser.id, data: profileData }))
   }
 
   return (
@@ -54,7 +54,7 @@ const Profile = () => {
           {authUser?.picture ? (
             <Button onClick={onDeletePicture}>Supprimer la photo</Button>
           ) : (
-            <FileUpload name="picture" control={control} />
+            <FileUpload name="file" control={control} />
           )}
         </HStack>
       </Fieldset>

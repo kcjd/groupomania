@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { HiHeart } from 'react-icons/hi'
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
 
 import { Button, Icon } from '@chakra-ui/react'
 
@@ -24,7 +24,7 @@ const LikeButton = ({ value, isActive, onClick }: Props) => {
           transition={{ duration: 0.3 }}
           initial={false}
         >
-          <Icon as={HiHeart} boxSize={6} color={isActive ? 'red.400' : 'gray.400'} />
+          <Icon as={isActive ? HiHeart : HiOutlineHeart} boxSize={6} color={isActive ? 'red.400' : 'gray.400'} />
         </motion.div>
       }
       onClick={onClick}

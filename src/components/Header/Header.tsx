@@ -14,7 +14,7 @@ const Header = () => {
         <Container maxW="container.xl">
           <HStack justify="space-between">
             <Link as={RouterLink} to="/">
-              <Image src={logo} alt="Groupomania" h={6} />
+              <Image src={logo} alt="Groupomania" w="auto" h={6} htmlWidth={300} htmlHeight={54} />
             </Link>
 
             <HStack>

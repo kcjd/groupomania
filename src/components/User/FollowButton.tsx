@@ -14,24 +14,21 @@ interface Props {
 
 const FollowButton = ({ user, isIcon }: Props) => {
   const dispatch = useAppDispatch()
-  const authUser = useAppSelector(selectAuthUser)
 
+  const authUser = useAppSelector(selectAuthUser)
   const existingFollow = useAppSelector((state) => selectFollow(state, authUser?.id, user.id))
 
-  const onFollow = () => dispatch(addFollow(user.id))
-  const onUnfollow = () => dispatch(deleteFollow(user.id))
-
-  const colorScheme = existingFollow ? undefined : 'brand'
+  const variant = existingFollow ? 'solid' : 'outline'
   const icon = existingFollow ? <Icon as={HiUserRemove} boxSize={5} /> : <Icon as={HiUserAdd} boxSize={5} />
   const label = existingFollow ? 'Se désabonner' : "S'abonner"
-  const onClick = existingFollow ? onUnfollow : onFollow
+  const onClick = existingFollow ? () => dispatch(deleteFollow(user.id)) : () => dispatch(addFollow(user.id))
 
   return (
     <>
       {isIcon ? (
-        <IconButton colorScheme={colorScheme} icon={icon} aria-label={label} onClick={onClick} isRound />
+        <IconButton variant={variant} icon={icon} aria-label={label} onClick={onClick} isRound />
       ) : (
-        <Button colorScheme={colorScheme} leftIcon={icon} onClick={onClick}>
+        <Button variant={variant} leftIcon={icon} onClick={onClick}>
           {label}
         </Button>
       )}

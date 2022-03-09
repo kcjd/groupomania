@@ -34,7 +34,7 @@ const UserBanner = ({ user }: Props) => {
       </VStack>
 
       {isOwner ? (
-        <Button colorScheme="brand" leftIcon={<Icon as={HiPencilAlt} />} onClick={onOpenPreferences}>
+        <Button variant="outline" leftIcon={<Icon as={HiPencilAlt} />} onClick={onOpenPreferences}>
           Modifier le profil
         </Button>
       ) : (

@@ -134,18 +134,14 @@ const Post = ({ post }: Props) => {
                     Supprimer
                   </MenuItem>
                 </>
+              ) : isModerator ? (
+                <MenuItem onClick={onHide} icon={<Icon as={HiEyeOff} boxSize={4} color="gray.500" />}>
+                  Masquer
+                </MenuItem>
               ) : (
-                <>
-                  <MenuItem icon={<Icon as={HiExclamation} boxSize={4} color="gray.500" />} onClick={onReport}>
-                    Signaler
-                  </MenuItem>
-
-                  {isModerator && (
-                    <MenuItem onClick={onHide} icon={<Icon as={HiEyeOff} boxSize={4} color="gray.500" />}>
-                      Masquer
-                    </MenuItem>
-                  )}
-                </>
+                <MenuItem icon={<Icon as={HiExclamation} boxSize={4} color="gray.500" />} onClick={onReport}>
+                  Signaler
+                </MenuItem>
               )}
             </MenuList>
           </Menu>

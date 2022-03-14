@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { ApiError, ApiResponse } from '../types/types'
 import toast from '../utils/toast'
 
-export const baseURL = 'http://localhost:5500/'
+export const baseURL = import.meta.env.VITE_API_URL as string
 
 const api = axios.create({
   baseURL

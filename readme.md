@@ -2,6 +2,10 @@
 
 Réseau social interne pour Groupomania, entreprise spécialisée dans la grande distribution (MVP).
 
+<img width="1440" alt="Groupomania - Page d'accueil" src="https://user-images.githubusercontent.com/64648220/163844229-b11eb1b1-1cd0-425f-ada2-9711d6a0e2c9.png">
+
+👉 [Voir la vidéo de présentation sur Youtube](https://youtu.be/7AjAt6aH1Is)
+
 ## Tech Stack
 
 Vite, TypeScript, React, Redux

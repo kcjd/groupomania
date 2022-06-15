@@ -28,6 +28,7 @@ import TextareaAutosize from '../UI/TextareaAutosize'
 import User from '../User/User'
 import Comment from './Comment'
 import LikeButton from './LikeButton'
+import placeholder from '../../assets/images/placeholder.png'
 
 interface Props {
   post?: PostData
@@ -154,6 +155,7 @@ const Post = ({ post }: Props) => {
             src={selectedFile ? URL.createObjectURL(selectedFile[0]) : baseURL + post?.media}
             alt=""
             objectFit="cover"
+            fallbackSrc={placeholder}
           />
         </AspectRatio>
       )}

@@ -2,10 +2,10 @@ import { HiAdjustments, HiLogout } from 'react-icons/hi'
 
 import { Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 
-import { logout, selectAuthUser } from '../../store/features/authSlice'
-import { openPreferences } from '../../store/features/modalsSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import Avatar from '../User/Avatar'
+import { logout, selectAuthUser } from '../store/features/authSlice'
+import { openPreferences } from '../store/features/modalsSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import Avatar from './Avatar'
 
 const UserMenu = () => {
   const dispatch = useAppDispatch()

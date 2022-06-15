@@ -1,6 +1,6 @@
 import Feed from '../components/Feed'
-import Post from '../components/Post/Post'
-import MainHeading from '../components/UI/MainHeading'
+import Post from '../components/Post'
+import MainHeading from '../components/MainHeading'
 import { selectAllPosts } from '../store/features/postsSlice'
 import { useAppSelector } from '../store/hooks'
 

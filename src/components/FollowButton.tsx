@@ -2,10 +2,10 @@ import { HiUserAdd, HiUserRemove } from 'react-icons/hi'
 
 import { Button, Icon, IconButton } from '@chakra-ui/react'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { addFollow, deleteFollow, selectFollow } from '../../store/features/followsSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { UserData } from '../../types/types'
+import { selectAuthUser } from '../store/features/authSlice'
+import { addFollow, deleteFollow, selectFollow } from '../store/features/followsSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { UserData } from '../types/types'
 
 interface Props {
   user: UserData

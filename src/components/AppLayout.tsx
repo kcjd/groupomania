@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 import { Container, Grid } from '@chakra-ui/react'
 
-import Header from './Header/Header'
+import Header from './Header'
 
 const AppLayout = () => {
   return (

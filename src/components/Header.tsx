@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { Container, HStack, Icon, IconButton, Image, Link, VStack } from '@chakra-ui/react'
 
-import logo from '../../assets/images/logo.svg'
+import logo from '../assets/images/logo.svg'
 import AppNav from './AppNav'
 import UserMenu from './UserMenu'
 

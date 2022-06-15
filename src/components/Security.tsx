@@ -3,12 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, Input, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { editPassword } from '../../store/features/usersSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { passwordSchema, PasswordValues } from '../../utils/validation'
-import Fieldset from '../UI/Fieldset'
-import FormControl from '../UI/FormControl'
+import { selectAuthUser } from '../store/features/authSlice'
+import { editPassword } from '../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { passwordSchema, PasswordValues } from '../utils/validation'
+import Fieldset from './Fieldset'
+import FormControl from './FormControl'
 
 const Security = () => {
   const dispatch = useAppDispatch()

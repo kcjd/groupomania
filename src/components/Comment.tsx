@@ -7,15 +7,15 @@ import TimeAgo from 'timeago-react'
 import { Box, Button, HStack, Icon, IconButton, Input, Link, Text, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { selectAuthUser } from '../../store/features/authSlice'
+import { selectAuthUser } from '../store/features/authSlice'
 import {
   addComment, deleteComment, editComment, hideComment
-} from '../../store/features/commentsSlice'
-import { selectUserById } from '../../store/features/usersSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { CommentData } from '../../types/types'
-import { commentSchema, CommentValues } from '../../utils/validation'
-import Avatar from '../User/Avatar'
+} from '../store/features/commentsSlice'
+import { selectUserById } from '../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { CommentData } from '../types/types'
+import { commentSchema, CommentValues } from '../utils/validation'
+import Avatar from './Avatar'
 
 interface Props {
   comment?: CommentData

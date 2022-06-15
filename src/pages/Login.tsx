@@ -5,7 +5,7 @@ import { Button, Heading, Image, Input, Link, Text, VStack } from '@chakra-ui/re
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import logoIcon from '../assets/images/logo-icon.svg'
-import FormControl from '../components/UI/FormControl'
+import FormControl from '../components/FormControl'
 import { login, selectAuthUser } from '../store/features/authSlice'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { loginSchema, LoginValues } from '../utils/validation'

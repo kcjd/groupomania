@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 
 import Feed from '../components/Feed'
-import MainHeading from '../components/UI/MainHeading'
-import UserBanner from '../components/User/UserBanner'
+import MainHeading from '../components/MainHeading'
+import UserBanner from '../components/UserBanner'
 import { selectPostsByUser } from '../store/features/postsSlice'
 import { selectUserById } from '../store/features/usersSlice'
 import { useAppSelector } from '../store/hooks'

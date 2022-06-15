@@ -1,9 +1,9 @@
 import { Button, Text, VStack } from '@chakra-ui/react'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { deleteUser } from '../../store/features/usersSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import Fieldset from '../UI/Fieldset'
+import { selectAuthUser } from '../store/features/authSlice'
+import { deleteUser } from '../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import Fieldset from './Fieldset'
 
 const Account = () => {
   const dispatch = useAppDispatch()

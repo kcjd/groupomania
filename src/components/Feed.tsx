@@ -3,8 +3,8 @@ import { PropsWithChildren } from 'react'
 import { Text, VStack } from '@chakra-ui/react'
 
 import { PostData } from '../types/types'
-import Post from './Post/Post'
-import Card from './UI/Card'
+import Post from './Post'
+import Card from './Card'
 
 interface Props {
   posts: PostData[]

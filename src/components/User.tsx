@@ -2,9 +2,9 @@ import { HiShieldCheck, HiUsers } from 'react-icons/hi'
 
 import { HStack, Icon, Text, VStack } from '@chakra-ui/react'
 
-import { selectFollowersByUser } from '../../store/features/followsSlice'
-import { useAppSelector } from '../../store/hooks'
-import { UserData } from '../../types/types'
+import { selectFollowersByUser } from '../store/features/followsSlice'
+import { useAppSelector } from '../store/hooks'
+import { UserData } from '../types/types'
 import Avatar from './Avatar'
 
 interface Props {

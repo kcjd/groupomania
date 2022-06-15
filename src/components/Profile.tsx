@@ -3,14 +3,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, HStack, Input, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { deleteUserPicture, editProfile } from '../../store/features/usersSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { ProfileValues, userSchema } from '../../utils/validation'
-import Fieldset from '../UI/Fieldset'
-import FileUpload from '../UI/FileUpload'
-import FormControl from '../UI/FormControl'
-import Avatar from '../User/Avatar'
+import { selectAuthUser } from '../store/features/authSlice'
+import { deleteUserPicture, editProfile } from '../store/features/usersSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { ProfileValues, userSchema } from '../utils/validation'
+import Fieldset from './Fieldset'
+import FileUpload from './FileUpload'
+import FormControl from './FormControl'
+import Avatar from './Avatar'
 
 interface FormValues extends ProfileValues {
   file: FileList

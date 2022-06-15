@@ -5,7 +5,7 @@ import { Button, Heading, Image, Input, Link, Stack, Text, VStack } from '@chakr
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import logoIcon from '../assets/images/logo-icon.svg'
-import FormControl from '../components/UI/FormControl'
+import FormControl from '../components/FormControl'
 import { selectAuthUser, signup } from '../store/features/authSlice'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { signupSchema, SignupValues } from '../utils/validation'

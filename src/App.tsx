@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import AppLayout from './components/AppLayout'
 import AuthLayout from './components/AuthLayout'
-import Preferences from './components/Preferences/Preferences'
+import Preferences from './components/Preferences'
 import PrivateRoute from './components/PrivateRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'

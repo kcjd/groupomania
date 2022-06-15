@@ -5,9 +5,9 @@ import {
   TabPanel, TabPanels, Tabs
 } from '@chakra-ui/react'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { closePreferences } from '../../store/features/modalsSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { selectAuthUser } from '../store/features/authSlice'
+import { closePreferences } from '../store/features/modalsSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 import Account from './Account'
 import Profile from './Profile'
 import Security from './Security'

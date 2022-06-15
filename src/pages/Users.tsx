@@ -1,8 +1,8 @@
 import { Text, VStack } from '@chakra-ui/react'
 
-import Card from '../components/UI/Card'
-import MainHeading from '../components/UI/MainHeading'
-import UserCard from '../components/User/UserCard'
+import Card from '../components/Card'
+import MainHeading from '../components/MainHeading'
+import UserCard from '../components/UserCard'
 import { selectAllUsers } from '../store/features/usersSlice'
 import { useAppSelector } from '../store/hooks'
 

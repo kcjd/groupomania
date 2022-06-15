@@ -1,7 +1,7 @@
 import { Avatar as ChakraAvatar, AvatarProps } from '@chakra-ui/react'
 
-import { baseURL } from '../../api/api'
-import { UserData } from '../../types/types'
+import { baseURL } from '../api/api'
+import { UserData } from '../types/types'
 
 interface Props extends AvatarProps {
   user?: UserData

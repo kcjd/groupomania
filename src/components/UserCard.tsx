@@ -2,10 +2,10 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { LinkBox, LinkOverlay } from '@chakra-ui/react'
 
-import { selectAuthUser } from '../../store/features/authSlice'
-import { useAppSelector } from '../../store/hooks'
-import { UserData } from '../../types/types'
-import Card from '../UI/Card'
+import { selectAuthUser } from '../store/features/authSlice'
+import { useAppSelector } from '../store/hooks'
+import { UserData } from '../types/types'
+import Card from './Card'
 import FollowButton from './FollowButton'
 import User from './User'
 
